@@ -9,6 +9,14 @@ output:
 
 ```{r setup, include=FALSE}
 library(flexdashboard)
+library(tidyverse)
+library(janitor)
+library(plotly)
+library(stringr)
+
+instacart = 
+  read_csv("../data/instacart_train_data.csv.zip") %>% 
+  clean_names()
 ```
 
 Column {data-width=650}
@@ -19,7 +27,23 @@ In this homework, I worked with Yeyi Zhang (UNI: yz3300).
 ### Chart A
 
 ```{r}
+violin_ggplot = 
+  instacart %>%
+  mutate(department = forcats::fct_reorder(department, order_hour_of_day, fun = IQR)) %>%
+  ggplot(aes(x = department, y = order_hour_of_day)) +
+  geom_violin(aes(fill = department), color = "blue", alpha = .5) +
+  stat_summary(fun.y = median, geom = "point", color = "blue", size = 2) +
+  guides(fill = "none") +
+  labs(
+    title = "Order Hour of Day Plot",
+    x = "Department",
+    y = "Order Hour of Day",
+    caption = "Data from Instacart"
+  ) +
+  theme_bw() +
+  coord_flip()
 
+ggplotly(violin_ggplot)
 ```
 
 Column {data-width=350}
@@ -34,5 +58,7 @@ Column {data-width=350}
 ### Chart C
 
 ```{r}
-
+instacart %>% 
+  filter(department == "produce") %>% 
+  plot_ly(x = ~order_hour_of_day, type = "histogram")
 ```
