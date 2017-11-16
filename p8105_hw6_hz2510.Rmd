@@ -13,16 +13,15 @@ library(tidyverse)
 library(janitor)
 library(plotly)
 library(stringr)
+library(ggridges)
 
 instacart = 
-  read_csv("../data/instacart_train_data.csv.zip") %>% 
+  read_csv("./data/instacart_train_data.csv.zip") %>% 
   clean_names()
 ```
 
 Column {data-width=650}
 -----------------------------------------------------------------------
-
-In this homework, I worked with Yeyi Zhang (UNI: yz3300).
 
 ### Chart A
 
@@ -52,7 +51,10 @@ Column {data-width=350}
 ### Chart B
 
 ```{r}
-
+instacart %>%
+  mutate(department = forcats::fct_reorder(department, order_hour_of_day, fun = IQR)) %>% 
+  plot_ly(y = ~order_hour_of_day, color = ~department, type = "box",
+          colors = "Set2")
 ```
 
 ### Chart C
@@ -62,3 +64,4 @@ instacart %>%
   filter(department == "produce") %>% 
   plot_ly(x = ~order_hour_of_day, type = "histogram")
 ```
+
