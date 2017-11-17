@@ -1,6 +1,5 @@
 ---
-title: "Homework 6"
-author: "Huijuan Zhang"
+title: "Problem 1"
 output: 
   flexdashboard::flex_dashboard:
     orientation: columns
