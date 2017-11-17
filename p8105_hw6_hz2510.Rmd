@@ -19,7 +19,7 @@ instacart =
   clean_names()
 ```
 
-Column {data-width=650}
+Column {data-width=600}
 -----------------------------------------------------------------------
 
 ### Order Hour of Day of Departments
@@ -43,7 +43,7 @@ violin_ggplot =
 ggplotly(violin_ggplot)
 ```
 
-Column {data-width=350}
+Column {data-width=400}
 -----------------------------------------------------------------------
 
 ### Days Since Prior Order of Departments
